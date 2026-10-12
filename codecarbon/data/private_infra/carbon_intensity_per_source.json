@@ -18,6 +18,10 @@
     "nuclear_source": "http://www.world-nuclear.org/uploadedFiles/org/WNA/Publications/Working_Group_Reports/comparison_of_lifecycle.pdf",
     "solar": 48,
     "solar_source": "http://www.world-nuclear.org/uploadedFiles/org/WNA/Publications/Working_Group_Reports/comparison_of_lifecycle.pdf",
+    "biomass": 230,
+    "biomass_source": "https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_annex-iii.pdf (IPCC AR5 WG3 Annex III, lifecycle median, same value as Electricity Maps)",
+    "waste": 330,
+    "waste_source": "Energinet Danish waste factor, 329.87 gCO2/kWh under the 125% CHP allocation, rounded. Single value for a mix of renewable and non-renewable waste: the renewable/non-renewable split varies by country and year and is not in our data model",
     "wind": 26,
     "wind_source": "http://www.world-nuclear.org/uploadedFiles/org/WNA/Publications/Working_Group_Reports/comparison_of_lifecycle.pdf"
 }

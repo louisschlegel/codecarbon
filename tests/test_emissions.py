@@ -50,9 +50,30 @@ class TestEmissions(unittest.TestCase):
     def test_get_carbon_intensity_per_source_data(self):
         # pytest tests/test_emissions.py::TestEmissions::test_get_carbon_intensity_per_source_data
         carbon_intensity = DataSource().get_carbon_intensity_per_source_data()
-        self.assertEqual(len(carbon_intensity.keys()), 21)
+        self.assertEqual(len(carbon_intensity.keys()), 25)
         self.assertGreater(carbon_intensity["coal"], 800)
         self.assertLess(carbon_intensity["wind"], 80)
+
+    def test_global_energy_mix_keeps_biomass_and_waste(self):
+        # Issue #1415: biomass and waste must not be dropped from the computed mix
+        carbon_intensity = DataSource().get_carbon_intensity_per_source_data()
+        self.assertEqual(carbon_intensity["biomass"], 230)
+        self.assertGreater(carbon_intensity["waste"], 0)
+
+        energy_mix = {
+            "country_name": "Testland",
+            "total_TWh": 3.0,
+            "wind_TWh": 1.0,
+            "biomass_TWh": 1.0,
+            "waste_TWh": 1.0,
+        }
+        rate = Emissions._global_energy_mix_to_emissions_rate(energy_mix)
+        expected = (
+            carbon_intensity["wind"]
+            + carbon_intensity["biomass"]
+            + carbon_intensity["waste"]
+        ) / 3
+        self.assertAlmostEqual(rate.kgs_per_kWh * 1000, expected, places=6)
 
     def test_get_emissions_PRIVATE_INFRA_FRA(self):
         """
